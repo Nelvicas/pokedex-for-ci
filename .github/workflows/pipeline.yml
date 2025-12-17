@@ -22,8 +22,7 @@ jobs:
         run: npm run eslint
 
       - name: Build
-        run: |
-          export NODE_OPTIONS=--openssl-legacy-provider
+        run: 
           npm run build
 
       - name: Test
