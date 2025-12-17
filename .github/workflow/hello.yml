@@ -3,12 +3,12 @@ name: Say hello!
 on:
   push:
     branches:
-      -main
+      - main
   
 jobs:
   hello_word:
     runs-on: ubuntu-18.04
     steps:
-      -name: Echo the message
-      run: |
-        echo "Hola miduv!"
+      - name: Echo the message
+        run: |
+          echo "Hola miduv!"
