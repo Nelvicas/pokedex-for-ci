@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '20'
       - name: Install dependencies
         run: npm install --no-audit --no-fund --no-optional
       - name: Lint
@@ -29,4 +29,4 @@ jobs:
         with:
           command: npm run test:e2e
           start: npm run start-test
-          waif-on: http}}://localhost:5000
+          waif-on: http://localhost:5000
