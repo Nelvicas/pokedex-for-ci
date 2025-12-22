@@ -4,11 +4,19 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
 
 jobs:
   deploy:
     runs-on: ubuntu-22.04
     steps:
+      - name: Cancel Previous Redundant Builds
+        uses: styfle/cancel-workflow-action@0.9.1
+        with: 
+          access_token: ${{github.token}}
+
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
@@ -16,11 +24,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '14'
+
       - name: Install dependencies
         run: |
           npm install --no-audit --no-fund --no-optional
           npm install cypress@9.7.0 --no-audit --no-fund --no-optional
-
 
       - name: Lint
         run: npm run eslint
@@ -45,6 +53,6 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
-          healthchheck: "https://${{secrets.HEROKU_APP}}/health"
+          healthchheck: "https://${{secrets.HEROKU_APP}}.herokuapp.com/health"
           rollbackonhealthcheckfaild: true
 
